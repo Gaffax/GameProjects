@@ -1,4 +1,5 @@
 package data;
+
 import static helpers.Artist.*;
 import org.newdawn.slick.opengl.Texture;
 
@@ -7,8 +8,8 @@ public class Tile {
 	private float x, y, width, height;
 	private Texture texture;
 	private TileType type;
-	
-	public Tile(float x, float y, float width, float height, TileType type){
+
+	public Tile(float x, float y, float width, float height, TileType type) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -16,8 +17,8 @@ public class Tile {
 		this.type = type;
 		this.texture = QuickLoad(type.getTextureName());
 	}
-	
-	public void draw(){
+
+	public void draw() {
 		DrawQuadTex(x, y, width, height, texture);
 	}
 
@@ -33,18 +34,18 @@ public class Tile {
 		return y;
 	}
 
-	public int getXPlace(){
+	public int getXPlace() {
 		return (int) x / 64;
 	}
-	
+
 	public void setY(float y) {
 		this.y = y;
 	}
 
-	public int getYPlace(){
+	public int getYPlace() {
 		return (int) y / 64;
 	}
-	
+
 	public float getWidth() {
 		return width;
 	}

@@ -4,8 +4,8 @@ public class Checkpoint {
 
 	private Tile tile;
 	private int xDirection, yDirection;
-	
-	public Checkpoint (Tile tile, int xDirection, int yDirection){
+
+	public Checkpoint(Tile tile, int xDirection, int yDirection) {
 		this.tile = tile;
 		this.xDirection = xDirection;
 		this.yDirection = yDirection;
@@ -22,5 +22,5 @@ public class Checkpoint {
 	public int getyDirection() {
 		return yDirection;
 	}
-	
+
 }

@@ -16,31 +16,31 @@ public class TileGrid {
 			}
 		}
 	}
-	
-	public TileGrid(int[][] newMap){
+
+	public TileGrid(int[][] newMap) {
 		map = new Tile[20][15];
-		for (int i = 0; i < map.length; i++){
-			for (int j = 0; j < map[i].length; j++){
-				switch(newMap[j][i]){
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				switch (newMap[j][i]) {
 				case 0:
-					map[i][j] = new Tile(i * 64, j * 64, 64,64, TileType.Grass);
+					map[i][j] = new Tile(i * 64, j * 64, 64, 64, TileType.Grass);
 					break;
 				case 1:
-					map[i][j] = new Tile(i * 64, j * 64, 64,64, TileType.Dirt);
+					map[i][j] = new Tile(i * 64, j * 64, 64, 64, TileType.Dirt);
 					break;
 				case 2:
-					map[i][j] = new Tile(i * 64, j * 64, 64,64, TileType.Water);
-					break;				
+					map[i][j] = new Tile(i * 64, j * 64, 64, 64, TileType.Water);
+					break;
 				}
 			}
 		}
 	}
-	
-	public void SetTile(int xPlace, int yPlace, TileType type){
+
+	public void SetTile(int xPlace, int yPlace, TileType type) {
 		map[xPlace][yPlace] = new Tile(xPlace * 64, yPlace * 64, 64, 64, type);
 	}
-	
-	public Tile GetTile(int xCoord, int yCoord){
+
+	public Tile GetTile(int xCoord, int yCoord) {
 		return map[xCoord][yCoord];
 	}
 
