@@ -5,10 +5,11 @@ import static helpers.Artist.*;
 public class TileGrid {
 
 	public Tile[][] map;
+	private int tilesWide, tilesHigh;
 
 	public TileGrid() {
 
-		map = new Tile[20][15];
+		map = new Tile[tilesWide][tilesHigh];
 
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -18,6 +19,8 @@ public class TileGrid {
 	}
 
 	public TileGrid(int[][] newMap) {
+		this.tilesWide = newMap[0].length;
+		this.tilesHigh = newMap.length;
 		map = new Tile[20][15];
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -41,7 +44,10 @@ public class TileGrid {
 	}
 
 	public Tile GetTile(int xCoord, int yCoord) {
-		return map[xCoord][yCoord];
+		if (xCoord < tilesWide && yCoord < tilesHigh && xCoord > -1 && yCoord > -1)
+			return map[xCoord][yCoord];
+		else
+			return new Tile(0, 0, 0, 0, TileType.NULL);
 	}
 
 	public void Draw() {
@@ -53,4 +59,22 @@ public class TileGrid {
 			}
 		}
 	}
+
+	public int getTilesHigh() {
+		return tilesHigh;
+	}
+
+	public void setTilesHigh(int tilesHigh) {
+		this.tilesHigh = tilesHigh;
+	}
+
+	public int getTilesWide() {
+		return tilesWide;
+	}
+
+	public void setTilesWide(int tilesWide) {
+		this.tilesWide = tilesWide;
+	}
+	
+	
 }

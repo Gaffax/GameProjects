@@ -2,7 +2,7 @@ package data;
 
 public enum TileType {
 	
-	Grass("grass64", true), Dirt("dirt64",false), Water("water64", false);//First parameter: Graphics, second parameter: Build tower possible?
+	Grass("grass64", true), Dirt("dirt64",false), Water("water64", false), NULL("water64", false);//First parameter: Graphics, second parameter: Build tower possible?
 	
 	private String textureName;
 	private boolean buildable;

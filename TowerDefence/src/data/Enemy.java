@@ -16,6 +16,8 @@ public class Enemy {
 	private boolean first = true;
 	private TileGrid grid;
 
+	private boolean alive = true;
+
 	private ArrayList<Checkpoint> checkpoints;
 	private int[] directions;
 
@@ -37,7 +39,7 @@ public class Enemy {
 		// Y direction
 		this.directions[1] = 0;
 
-		directions = findNextD(startTile);
+		directions = findNextDirection(startTile);
 		this.currentCheckpoint = 0;
 		populateCheckPointList();
 	}
@@ -53,9 +55,11 @@ public class Enemy {
 		if (first) {
 			first = false;
 		} else {
-
 			if (CheckpointReached()) {
-				currentCheckpoint++;
+				if (currentCheckpoint + 1 == checkpoints.size())
+					die();
+				else
+					currentCheckpoint++;
 			} else {
 				x += Delta()
 						* checkpoints.get(currentCheckpoint).getxDirection();
@@ -84,20 +88,21 @@ public class Enemy {
 		// it fine to set the directions variable and use it at the same time,
 		// while in a parameter.
 		checkpoints.add(FindNextCheckPoint(startTile,
-				directions = findNextD(startTile)));
+				directions = findNextDirection(startTile)));
 
 		int counter = 0;
 		boolean cont = true; // continue
 		while (cont) { // As long as we are continuing to search.
-			int[] currentD = findNextD(checkpoints.get(counter).getTile());
-			//Check if a next direction/checkpoint exists, end after 20checkpoints
+			int[] currentD = findNextDirection(checkpoints.get(counter)
+					.getTile());
+			// Check if a next direction/checkpoint exists, end after
+			// 20checkpoints
 			if (currentD[0] == 2 || counter == 20) {
 				cont = false;
 			} else {
 				checkpoints.add(FindNextCheckPoint(checkpoints.get(counter)
-						.getTile(),
-						directions = findNextD(checkpoints.get(counter)
-								.getTile())));
+						.getTile(), directions = findNextDirection(checkpoints
+						.get(counter).getTile())));
 			}
 			counter++;
 		}
@@ -112,8 +117,11 @@ public class Enemy {
 
 		while (!found) {
 
-			if (s.getType() != grid.GetTile(s.getXPlace() + dir[0] * counter,
-					s.getYPlace() + dir[1] * counter).getType()) {
+			if (s.getXPlace() + dir[0] * counter == grid.getTilesWide()
+					|| s.getYPlace() + dir[1] == grid.getTilesHigh()
+					|| s.getType() != grid.GetTile(
+							s.getXPlace() + dir[0] * counter,
+							s.getYPlace() + dir[1] * counter).getType()) {
 				found = true;
 
 				// Move counter back 1 to find tile before new tileType.
@@ -130,44 +138,37 @@ public class Enemy {
 		return c;
 	}
 
-	private int[] findNextD(Tile s) {
+	private int[] findNextDirection(Tile s) {
 		int[] dir = new int[2];
 		Tile up = grid.GetTile(s.getXPlace(), s.getYPlace() - 1);
 		Tile right = grid.GetTile(s.getXPlace() + 1, s.getYPlace());
 		Tile down = grid.GetTile(s.getXPlace(), s.getYPlace() + 1);
 		Tile left = grid.GetTile(s.getXPlace() - 1, s.getYPlace());
 
-		if (s.getType() == up.getType()) {
+		if (s.getType() == up.getType() && directions[1] != 1) {
 			dir[0] = 0;
 			dir[1] = -1;
-		} else if (s.getType() == right.getType()) {
+		} else if (s.getType() == right.getType() && directions[1] != 1) {
 			dir[0] = 1;
 			dir[1] = 0;
-		} else if (s.getType() == down.getType()) {
+		} else if (s.getType() == down.getType() && directions[1] != 1) {
 			dir[0] = 0;
 			dir[1] = 1;
-		} else if (s.getType() == left.getType()) {
+		} else if (s.getType() == left.getType() && directions[1] != -1) {
 			dir[0] = -1;
 			dir[1] = 0;
 		} else {
 			dir[0] = 2;
 			dir[1] = 2;
-			System.out.println("NO DIRECTION FOUND"); // DEBUGGING
 		}
 
 		return dir;
 	}
 
-	/*
-	 * private boolean pathContinues(){ boolean answer = true;
-	 * 
-	 * Tile myTile = grid.GetTile((int)(x / 64), (int)(y / 64)); Tile nextTile =
-	 * grid.GetTile((int)(x / 64) +1, (int)(y / 64));
-	 * 
-	 * if (myTile.getType() != nextTile.getType()) answer = false;
-	 * 
-	 * return answer; }
-	 */
+
+	private void die() {
+		alive = false;
+	}
 
 	public void Draw() {
 		DrawQuadTex(x, y, width, height, texture);
@@ -253,4 +254,7 @@ public class Enemy {
 		this.grid = grid;
 	}
 
+	public boolean isAlive() {
+		return alive;
+	}
 }
