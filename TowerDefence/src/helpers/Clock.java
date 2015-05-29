@@ -14,7 +14,7 @@ public class Clock {
 		// of a blink of the eye. Need to figure out, how to
 		// set the update time in a way, so it's an appropriate
 		// time for the current computer.
-		return (long) (Sys.getTime() * 100000 / Sys.getTimerResolution());
+		return (long) (Sys.getTime() * 10000 / Sys.getTimerResolution());
 	}
 	
 	public static float getDelta(){
