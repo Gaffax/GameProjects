@@ -14,8 +14,8 @@ public class TowerCannon {
 	private Texture baseTexture, cannonTexture;
 	private Tile startTile;
 	private ArrayList<Projectile> projectiles;
-	
-	public TowerCannon(Texture baseTexture, Tile startTile, int damage){
+
+	public TowerCannon(Texture baseTexture, Tile startTile, int damage) {
 		this.baseTexture = baseTexture;
 		this.cannonTexture = QuickLoad("cannonGun");
 		this.startTile = startTile;
@@ -28,27 +28,28 @@ public class TowerCannon {
 		this.timeSinceLastShot = 0;
 		this.projectiles = new ArrayList<Projectile>();
 	}
-	
-	private void shoot(){
+
+	private void shoot() {
 		timeSinceLastShot = 0;
-		projectiles.add((new Projectile(QuickLoad("bullet"), x+ 32, y +32, 5, 10)));
+		projectiles.add((new Projectile(QuickLoad("bullet"), x + 32, y + 32, 5,
+				10)));
 
 	}
-	
-	public void update(){
+
+	public void update() {
 		timeSinceLastShot += Delta();
-		if(timeSinceLastShot > firingSpeed)
+		if (timeSinceLastShot > firingSpeed)
 			shoot();
-		
+
 		for (Projectile p : projectiles)
 			p.update();
-		
+
 		draw();
 	}
-	
-	public void draw(){
 
-		DrawQuadTex(x, y, width, height, baseTexture);
-		DrawQuadTex(x, y, width, height, cannonTexture);
+	public void draw() {
+
+		DrawQuadTexture(x, y, width, height, baseTexture);
+		DrawQuadTextureRotate(x, y, width, height, cannonTexture, 45);
 	}
 }

@@ -171,7 +171,7 @@ public class Enemy {
 	}
 
 	public void Draw() {
-		DrawQuadTex(x, y, width, height, texture);
+		DrawQuadTexture(x, y, width, height, texture);
 	}
 
 	public int getWidth() {

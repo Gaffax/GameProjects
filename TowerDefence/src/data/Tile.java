@@ -19,7 +19,7 @@ public class Tile {
 	}
 
 	public void draw() {
-		DrawQuadTex(x, y, width, height, texture);
+		DrawQuadTexture(x, y, width, height, texture);
 	}
 
 	public float getX() {

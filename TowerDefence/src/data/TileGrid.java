@@ -54,7 +54,7 @@ public class TileGrid {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				Tile t = map[i][j];
-				DrawQuadTex(t.getX(), t.getY(), t.getWidth(), t.getHeight(),
+				DrawQuadTexture(t.getX(), t.getY(), t.getWidth(), t.getHeight(),
 						t.getTexture());
 			}
 		}
