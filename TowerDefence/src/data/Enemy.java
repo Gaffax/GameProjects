@@ -62,9 +62,9 @@ public class Enemy {
 					currentCheckpoint++;
 			} else {
 				x += Delta()
-						* checkpoints.get(currentCheckpoint).getxDirection();
+						* checkpoints.get(currentCheckpoint).getxDirection() * speed;
 				y += Delta()
-						* checkpoints.get(currentCheckpoint).getyDirection();
+						* checkpoints.get(currentCheckpoint).getyDirection() * speed;
 			}
 		}
 	}

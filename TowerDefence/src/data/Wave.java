@@ -8,11 +8,14 @@ public class Wave {
 	private float timeSinceLastSpawn, spawnTime;
 	private Enemy enemyType;
 	private ArrayList<Enemy> enemyList;
+	private int enemiesPerWave;
 
-	public Wave(float spawnTime, Enemy EnemyType) {
+	public Wave(Enemy EnemyType, float spawnTime, int enemiesPerWave) {
 		this.enemyType = EnemyType;
 		this.spawnTime = spawnTime;
 		enemyList = new ArrayList<Enemy>();
+		
+		Spawn();
 	}
 
 	public void Update() {

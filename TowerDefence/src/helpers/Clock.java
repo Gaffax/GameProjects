@@ -26,9 +26,9 @@ public class Clock {
 		LastFrame = getTime();
 
 		// We set the max delta to be 0.5f.
-	if(delta * 0.01f > 0.5f) //Prevents huge delta time differences between updates.
-			return 0.5f;	 // If the game lagged for some reason, without this the
-		return delta * 0.01f;// Game would update according to the time before the lag
+	if(delta * 0.001f > 0.05f) //Prevents huge delta time differences between updates.
+			return 0.05f;	 // If the game lagged for some reason, without this the
+		return delta * 0.001f;// Game would update according to the time before the lag
 	}						 // and after the lag. Which could mess up the game.
 							 
 	public static float Delta(){
