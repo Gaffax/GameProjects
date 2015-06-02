@@ -9,12 +9,13 @@ import static helpers.Clock.*;
 
 public class TowerCannon {
 
-	private float x, y, timeSinceLastShot, firingSpeed;
+	private float x, y, timeSinceLastShot, firingSpeed, angle;
 	private int width, height, damage;
 	private Texture baseTexture, cannonTexture;
 	private Tile startTile;
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Enemy> enemies;
+	private Enemy target;
 
 	public TowerCannon(Texture baseTexture, Tile startTile, int damage, ArrayList<Enemy> enemies) {
 		this.baseTexture = baseTexture;
@@ -29,11 +30,22 @@ public class TowerCannon {
 		this.timeSinceLastShot = 0;
 		this.projectiles = new ArrayList<Projectile>();
 		this.enemies = enemies;
+		this.target  = aquireTarget();
+		this.angle = calculateAngle();
+	}
+	
+	private Enemy aquireTarget(){
+		return enemies.get(0);
 	}
 
+	private float calculateAngle(){
+		double angleTemp = Math.atan2(target.getY() - y, target.getX() - x);
+		return (float) Math.toDegrees(angleTemp) - 90;
+	}
+	
 	private void shoot() {
 		timeSinceLastShot = 0;
-		projectiles.add((new Projectile(QuickLoad("bullet"), x + 32, y + 32, 50,
+		projectiles.add((new Projectile(QuickLoad("bullet"), target, x + 32, y + 32, 200,
 				10)));
 
 	}
@@ -46,12 +58,13 @@ public class TowerCannon {
 		for (Projectile p : projectiles)
 			p.update();
 
+		angle = calculateAngle();
 		draw();
 	}
 
 	public void draw() {
 
 		DrawQuadTexture(x, y, width, height, baseTexture);
-		DrawQuadTextureRotate(x, y, width, height, cannonTexture, 45);
+		DrawQuadTextureRotate(x, y, width, height, cannonTexture, angle);
 	}
 }
