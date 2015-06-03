@@ -1,5 +1,7 @@
 package data;
 
+import helpers.Clock;
+
 import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
@@ -60,10 +62,16 @@ public class Player {
 			// Gets the right key input. Needs the getEventKeyState to make
 			// sure,
 			// that the input is passed only once, every time it key is pressed.
-			if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT
+			if (Keyboard.getEventKey() == Keyboard.KEY_LEFT
 					&& Keyboard.getEventKeyState()) {
+				Clock.ChangeMultiplier(-0.2f);
+				moveIndex();
+			} if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT
+					&& Keyboard.getEventKeyState()) {
+				Clock.ChangeMultiplier(0.2f);
 				moveIndex();
 			}
+			
 			if (Keyboard.getEventKey() == Keyboard.KEY_T
 					&& Keyboard.getEventKeyState()) {
 				towerList.add(new TowerCannon(QuickLoad("cannonBase"), grid
