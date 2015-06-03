@@ -18,6 +18,7 @@ public class Button {
 	}
 	
 	public Button (String name, Texture texture, int x, int y){
+		this.name = name;
 		this.texture = texture;
 		this.x = x;
 		this.y = y;
