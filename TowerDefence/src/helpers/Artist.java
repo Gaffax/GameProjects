@@ -20,7 +20,7 @@ public class Artist {
 		Display.setTitle("Tower Defence");
 
 		try {
-			Display.setDisplayMode(new DisplayMode(1280, 960));
+			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create();
 
 		} catch (LWJGLException e) {
@@ -66,15 +66,15 @@ public class Artist {
 		glVertex2f(0, height);
 		glEnd();
 		glLoadIdentity(); // Needs to be at the end
-
 	}
 
 	public static void DrawQuadTextureRotate(float x, float y, float width,
 			float height, Texture tex, float angle) {
 		tex.bind();
-		glTranslatef(x + width / 2, y + height / 2, 0); //finds the center of the square
+		glTranslatef(x + width / 2, y + height / 2, 0); // finds the center of
+														// the square
 		glRotatef(angle, 0, 0, 1);
-		glTranslatef(- width / 2, - height / 2, 0);
+		glTranslatef(-width / 2, -height / 2, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
 		glVertex2f(0, 0);

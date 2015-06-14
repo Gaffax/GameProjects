@@ -9,7 +9,7 @@ public class TileGrid {
 
 	public TileGrid() {
 
-		map = new Tile[tilesWide][tilesHigh];
+		map = new Tile[20][15];
 
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
@@ -44,7 +44,8 @@ public class TileGrid {
 	}
 
 	public Tile GetTile(int xCoord, int yCoord) {
-		if (xCoord < tilesWide && yCoord < tilesHigh && xCoord > -1 && yCoord > -1)
+		if (xCoord < tilesWide && yCoord < tilesHigh && xCoord > -1
+				&& yCoord > -1)
 			return map[xCoord][yCoord];
 		else
 			return new Tile(0, 0, 0, 0, TileType.NULL);
@@ -54,8 +55,8 @@ public class TileGrid {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				Tile t = map[i][j];
-				DrawQuadTexture(t.getX(), t.getY(), t.getWidth(), t.getHeight(),
-						t.getTexture());
+				DrawQuadTexture(t.getX(), t.getY(), t.getWidth(),
+						t.getHeight(), t.getTexture());
 			}
 		}
 	}
@@ -75,6 +76,5 @@ public class TileGrid {
 	public void setTilesWide(int tilesWide) {
 		this.tilesWide = tilesWide;
 	}
-	
-	
+
 }

@@ -1,4 +1,4 @@
-package UI;
+package ui;
 
 import org.newdawn.slick.opengl.Texture;
 
