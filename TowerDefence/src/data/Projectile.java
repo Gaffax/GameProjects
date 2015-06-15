@@ -7,18 +7,22 @@ import static helpers.Artist.*;
 public class Projectile {
 
 	private Texture texture;
-	private float x, y, speed, xVelocity, yVelocity;
+	private float x, y, width, height, speed, xVelocity, yVelocity;
 	private int damage;
+	private boolean isAlive;
 	private Enemy target;
 
 	public Projectile(Texture texture, Enemy target, float x, float y,
-			float speed, int damage) {
+			float width, float height, float speed, int damage) {
 		this.texture = texture;
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.height = height;
 		this.speed = speed;
 		this.damage = damage;
 		this.target = target;
+		this.isAlive = true;
 		this.xVelocity = 0f;
 		this.yVelocity = 0f;
 		calculateDirection();
@@ -47,6 +51,8 @@ public class Projectile {
 	public void update() {
 		x += xVelocity * speed * Delta();
 		y += yVelocity * speed * Delta();
+		if(checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(), target.getHeight()))
+			System.out.println("Protectule hit it's target");
 		draw();
 	}
 
