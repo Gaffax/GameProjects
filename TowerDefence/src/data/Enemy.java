@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
-public class Enemy {
+public class Enemy implements Entity{
 
 	private int width, height, health, currentCheckpoint;
 	private float speed, x, y;
@@ -15,14 +15,14 @@ public class Enemy {
 	private Tile startTile;
 	private boolean first = true;
 	private TileGrid grid;
-
+	
 	private boolean alive = true;
 
 	private ArrayList<Checkpoint> checkpoints;
 	private int[] directions;
 
 	public Enemy(Texture texture, Tile startTile, TileGrid grid, int width,
-			int height, float speed) {
+			int height, float speed, int health) {
 		this.texture = texture;
 		this.startTile = startTile;
 		this.x = startTile.getX();
@@ -30,6 +30,7 @@ public class Enemy {
 		this.width = width;
 		this.height = height;
 		this.speed = speed;
+		this.health = health;
 		this.grid = grid;
 
 		this.checkpoints = new ArrayList<Checkpoint>();
@@ -44,7 +45,7 @@ public class Enemy {
 		populateCheckPointList();
 	}
 
-	public void Update() {
+	public void update() {
 
 		/*
 		 * Update is calculated with delta, and thus the first update will take
@@ -87,7 +88,7 @@ public class Enemy {
 		// directions = findNextD(startTile); Instead of doing this,
 		// it fine to set the directions variable and use it at the same time,
 		// while in a parameter.
-		checkpoints.add(FindNextCheckPoint(startTile,
+		checkpoints.add(findNextCheckPoint(startTile,
 				directions = findNextDirection(startTile)));
 
 		int counter = 0;
@@ -100,7 +101,7 @@ public class Enemy {
 			if (currentD[0] == 2 || counter == 20) {
 				cont = false;
 			} else {
-				checkpoints.add(FindNextCheckPoint(checkpoints.get(counter)
+				checkpoints.add(findNextCheckPoint(checkpoints.get(counter)
 						.getTile(), directions = findNextDirection(checkpoints
 						.get(counter).getTile())));
 			}
@@ -108,7 +109,7 @@ public class Enemy {
 		}
 	}
 
-	private Checkpoint FindNextCheckPoint(Tile s, int[] dir) {
+	private Checkpoint findNextCheckPoint(Tile s, int[] dir) {
 		Tile next = null;
 		Checkpoint c = null;
 
@@ -119,7 +120,7 @@ public class Enemy {
 
 			if (s.getXPlace() + dir[0] * counter == grid.getTilesWide()
 					|| s.getYPlace() + dir[1] == grid.getTilesHigh()
-					|| s.getType() != grid.GetTile(
+					|| s.getType() != grid.getTile(
 							s.getXPlace() + dir[0] * counter,
 							s.getYPlace() + dir[1] * counter).getType()) {
 				found = true;
@@ -127,7 +128,7 @@ public class Enemy {
 				// Move counter back 1 to find tile before new tileType.
 				counter -= 1;
 
-				next = grid.GetTile(s.getXPlace() + dir[0] * counter,
+				next = grid.getTile(s.getXPlace() + dir[0] * counter,
 						s.getYPlace() + dir[1] * counter);
 			}
 
@@ -140,10 +141,10 @@ public class Enemy {
 
 	private int[] findNextDirection(Tile s) {
 		int[] dir = new int[2];
-		Tile up = grid.GetTile(s.getXPlace(), s.getYPlace() - 1);
-		Tile right = grid.GetTile(s.getXPlace() + 1, s.getYPlace());
-		Tile down = grid.GetTile(s.getXPlace(), s.getYPlace() + 1);
-		Tile left = grid.GetTile(s.getXPlace() - 1, s.getYPlace());
+		Tile up = grid.getTile(s.getXPlace(), s.getYPlace() - 1);
+		Tile right = grid.getTile(s.getXPlace() + 1, s.getYPlace());
+		Tile down = grid.getTile(s.getXPlace(), s.getYPlace() + 1);
+		Tile left = grid.getTile(s.getXPlace() - 1, s.getYPlace());
 
 		if (s.getType() == up.getType() && directions[1] != 1) {
 			dir[0] = 0;
@@ -165,12 +166,17 @@ public class Enemy {
 		return dir;
 	}
 
+	public void damage(int amount){
+		health -= amount;
+		if (health <= 0)
+			die();
+	}
 
 	private void die() {
 		alive = false;
 	}
 
-	public void Draw() {
+	public void draw() {
 		DrawQuadTexture(x, y, width, height, texture);
 	}
 

@@ -8,7 +8,7 @@ public class Clock {
 	public static long LastFrame, totalTime;
 	public static float d = 0, multiplier = 1;
 	
-	public static long getTime(){
+	public static long GetTime(){
 		// Initially the multiplier was a single digit int.
 		// But the clock on my computer made the units race
 		// of a blink of the eye. Need to figure out, how to
@@ -17,13 +17,13 @@ public class Clock {
 		return (long) (Sys.getTime() * 10000 / Sys.getTimerResolution());
 	}
 	
-	public static float getDelta(){
+	public static float GetDelta(){
 		//Delta time is between right now, and the last update to the game.
 		//Can compensate for lag in big multiplayer games.
 		
-		long currentTime = getTime();
+		long currentTime = GetTime();
 		int delta = (int) (currentTime - LastFrame);
-		LastFrame = getTime();
+		LastFrame = GetTime();
 
 		// We set the max delta to be 0.5f.
 	if(delta * 0.001f > 0.05f) //Prevents huge delta time differences between updates.
@@ -47,7 +47,7 @@ public class Clock {
 	}
 	
 	public static void Update(){
-		d = getDelta();
+		d = GetDelta();
 		totalTime += d;
 	}
 	

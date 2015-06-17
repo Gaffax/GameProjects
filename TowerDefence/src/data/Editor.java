@@ -12,12 +12,12 @@ public class Editor {
 	private int index;
 	private TileType[] types;
 	private boolean rightMouseButtonDown = false;
-	
+
 	public Editor() {
 		grid = loadMap("newMap1");
 		// grid = new TileGrid();
 		this.index = 0;
-		
+
 		this.types = new TileType[3];
 		this.types[0] = TileType.Grass;
 		this.types[1] = TileType.Dirt;
@@ -25,25 +25,22 @@ public class Editor {
 	}
 
 	public void update() {
-		grid.Draw();
+		grid.draw();
 
 		// Handle mouse input
 
-		//Paint set current tile type
+		// Paint set current tile type
 		if (Mouse.isButtonDown(0)) {
 			setTile();
 		}
 
 		// One click, one update.
-		//Changes the current tile type to be placed.
+		// Changes the current tile type to be placed.
 		if (Mouse.isButtonDown(1) && !rightMouseButtonDown) {
 			moveIndex();
 		}
 		rightMouseButtonDown = Mouse.isButtonDown(1);
-		
-		
-		
-		
+
 		// Handle keyboard input
 		while (Keyboard.next()) {
 			// Gets the right key input. Needs the getEventKeyState to make
@@ -53,7 +50,7 @@ public class Editor {
 					&& Keyboard.getEventKeyState()) {
 				moveIndex();
 			}
-			
+
 			if (Keyboard.getEventKey() == Keyboard.KEY_S
 					&& Keyboard.getEventKeyState()) {
 				saveMap("newMap1", grid);
@@ -62,11 +59,11 @@ public class Editor {
 	}
 
 	private void setTile() {
-		grid.SetTile((int) Math.floor(Mouse.getX() / 64),
+		grid.setTile((int) Math.floor(Mouse.getX() / 64),
 				(int) Math.floor((HEIGHT - Mouse.getY() - 1) / 64),
 				types[index]);
 	}
-	
+
 	private void moveIndex() {
 		index++;
 		if (index > types.length - 1) {

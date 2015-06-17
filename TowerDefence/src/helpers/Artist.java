@@ -15,8 +15,9 @@ import org.newdawn.slick.util.ResourceLoader;
 public class Artist {
 
 	public static final int WIDTH = 1280, HEIGHT = 960;
-
-	public static void beginSession() {
+	public static final int TILE_SIZE = 64;
+	
+	public static void BeginSession() {
 		Display.setTitle("Tower Defence");
 
 		try {
@@ -37,7 +38,7 @@ public class Artist {
 
 	}
 
-	public static boolean checkCollision(float x1, float y1, float width1,
+	public static boolean CheckCollision(float x1, float y1, float width1,
 			float height1, float x2, float y2, float width2, float height2) {
 
 		if (x1 + width1 > x2 && x1 < x2 + width2 && y1 + height1 > y2
@@ -46,7 +47,7 @@ public class Artist {
 		return false;
 	}
 
-	public static void drawQuad(float x, float y, float width, float height) {
+	public static void DrawQuad(float x, float y, float width, float height) {
 		// glBegin(GL_LINES);//Begins drawing a line.
 		// glVertex2f(10, 10);//Draws from 10,10
 		// glVertex2f(100,100);//Ends line at 100,100
@@ -61,8 +62,8 @@ public class Artist {
 	}
 
 	public static void DrawQuadTexture(float x, float y, float width,
-			float height, Texture tex) {
-		tex.bind();
+			float height, Texture texture) {
+		texture.bind();
 		glTranslatef(x, y, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
@@ -78,8 +79,8 @@ public class Artist {
 	}
 
 	public static void DrawQuadTextureRotate(float x, float y, float width,
-			float height, Texture tex, float angle) {
-		tex.bind();
+			float height, Texture texture, float angle) {
+		texture.bind();
 		glTranslatef(x + width / 2, y + height / 2, 0); // finds the center of
 														// the square
 		glRotatef(angle, 0, 0, 1);
@@ -99,21 +100,21 @@ public class Artist {
 	}
 
 	public static Texture LoadTexture(String path, String fileType) {
-		Texture tex = null;
+		Texture texture = null;
 
 		InputStream in = ResourceLoader.getResourceAsStream(path);
 
 		try {
-			tex = TextureLoader.getTexture(fileType, in);
+			texture = TextureLoader.getTexture(fileType, in);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return tex;
+		return texture;
 	}
 
 	public static Texture QuickLoad(String name) {
-		Texture tex = null;
-		tex = LoadTexture("res/" + name + ".png", "PNG");
-		return tex;
+		Texture texture = null;
+		texture = LoadTexture("res/" + name + ".png", "PNG");
+		return texture;
 	}
 }

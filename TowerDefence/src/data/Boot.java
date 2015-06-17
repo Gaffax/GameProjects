@@ -1,27 +1,24 @@
 package data;
 
+import static helpers.Artist.BeginSession;
 import helpers.Clock;
 import helpers.StateManager;
 
 import org.lwjgl.opengl.Display;
 
-import static helpers.Artist.*;
-import data.Game;
-
 public class Boot {
 
 	public Boot() {
 
-		beginSession();
+		BeginSession();
 
 		// Game game = new Game(map);
 		while (!Display.isCloseRequested()) {
 			Clock.Update();
 
-			 // game.update();
+			// game.update();
 			StateManager.update();
-			
-			
+
 			Display.update();
 			Display.sync(60);
 		}
